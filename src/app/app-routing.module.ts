@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RankedRecordComponent } from './ranked-record/ranked-record.component'
+import { PlayerAnalyticsComponent } from './player-analytics/player-analytics.component'
 
 const routes: Routes = [
-  {path: 'ranked-record', component: RankedRecordComponent},
-  {path: '**', component: RankedRecordComponent}
+  {path: 'player-civs', component: PlayerAnalyticsComponent},
+  {path: '**', component: PlayerAnalyticsComponent}
 ];
 
 @NgModule({
