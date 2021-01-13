@@ -41,6 +41,20 @@ export class PlayerAnalyticsComponent implements OnInit {
           return  "Error";
         }
       }
+    },
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString : "Win Rate (%)"
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString : "Total Matches"
+        }
+      }]
     }
   };
   public chartLabels: Label[] = [];
@@ -104,7 +118,8 @@ export class PlayerAnalyticsComponent implements OnInit {
               const point: ChartPoint = { x: res.totalMatches , y: res.winRate, t: res.name as string }
               return point;
             }),
-            pointStyle: this.images
+            pointStyle: this.images,
+            label: "Civ dataset"
           },
         ];
 
