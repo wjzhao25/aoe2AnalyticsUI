@@ -9,13 +9,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { GlobalAnalyticsComponent } from './global-analytics/global-analytics.component';
 @NgModule({
   declarations: [
     AppComponent,
-    PlayerAnalyticsComponent
+    PlayerAnalyticsComponent,
+    GlobalAnalyticsComponent
   ],
   imports: [
+    MatCardModule,
     MatSelectModule,
     MatAutocompleteModule,
     FormsModule,

@@ -1,8 +1,9 @@
-<form class="player-name-form" (ngSubmit)="onSubmit()">
+<form class="player-form" (ngSubmit)="onSubmit()">
   <mat-form-field class="player-name-full-width">
     <mat-label>Player username</mat-label>
     <input matInput placeholder="Ex. MbL40C" [formControl]="playerName" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="setPlayerName($event.option.value)">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+      (optionSelected)="setPlayerName($event.option.value)">
       <mat-option *ngFor="let option of filteredOptions | async | slice : 0 : 10" [value]="option.name">
         {{option.name}}
       </mat-option>
@@ -17,6 +18,23 @@
     </mat-select>
   </mat-form-field>
 </form>
+<mat-card class="player-profile-card">
+  <mat-card-header>
+    <mat-card-title>{{playerProfile.name}}</mat-card-title>
+    <mat-card-subtitle>{{playerProfile.steamId}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      Rank:&nbsp;<b>{{playerProfile.rank}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+      Rating:&nbsp;<b>{{playerProfile.rating}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+      Country:&nbsp;<b>{{playerProfile.country}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+      Games:&nbsp;<b>{{playerProfile.games}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+      Wins:&nbsp;<b>{{playerProfile.wins}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+      Losses:&nbsp;<b>{{playerProfile.losses}}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+    </p>
+  </mat-card-content>
+
+</mat-card>
 <div style="display: block;">
   <canvas baseChart [datasets]="scatterChartData" [labels]="chartLabels" [options]="scatterChartOptions"
     [chartType]="scatterChartType">

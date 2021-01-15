@@ -1,0 +1,16 @@
+<form class="global-form" >
+    <mat-form-field appearance="fill">
+        <mat-label>Select Map</mat-label>
+        <mat-select [(ngModel)]="map" name="map" (selectionChange)="setMap($event.value)">
+            <mat-option *ngFor="let map of maps" [value]="map">
+                {{map}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+
+<div style="display: block;">
+    <canvas baseChart [datasets]="scatterChartData" [labels]="chartLabels" [options]="scatterChartOptions"
+        [chartType]="scatterChartType">
+    </canvas>
+</div>

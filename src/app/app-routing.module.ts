@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { GlobalAnalyticsComponent } from './global-analytics/global-analytics.component';
 import { PlayerAnalyticsComponent } from './player-analytics/player-analytics.component'
 
 const routes: Routes = [
-  {path: 'player-civs', component: PlayerAnalyticsComponent},
+  {path: 'global', component: GlobalAnalyticsComponent},
+  {path: 'players', component: PlayerAnalyticsComponent},
   {path: '**', component: PlayerAnalyticsComponent}
 ];
 
