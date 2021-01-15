@@ -7,13 +7,19 @@ import { PlayerAnalyticsComponent } from './player-analytics/player-analytics.co
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     PlayerAnalyticsComponent
   ],
   imports: [
+    MatSelectModule,
+    MatAutocompleteModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     HttpClientModule,
     BrowserModule,

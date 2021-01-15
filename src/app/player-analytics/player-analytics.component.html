@@ -1,15 +1,24 @@
-
-<form class="profile-id-form">
-  <mat-form-field class="profile-id-full-width">
-    <mat-label>Profile id</mat-label>
-    <input matInput placeholder="123456" value="1263456">
+<form class="player-name-form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="player-name-full-width">
+    <mat-label>Player username</mat-label>
+    <input matInput placeholder="Ex. MbL40C" [formControl]="playerName" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="setPlayerName($event.option.value)">
+      <mat-option *ngFor="let option of filteredOptions | async | slice : 0 : 10" [value]="option.name">
+        {{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Select Map</mat-label>
+    <mat-select [(ngModel)]="map" name="map" (selectionChange)="setMap($event.value)">
+      <mat-option *ngFor="let map of maps" [value]="map">
+        {{map}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 </form>
 <div style="display: block;">
-  <canvas baseChart
-    [datasets]="scatterChartData"
-    [labels]="chartLabels"
-    [options]="scatterChartOptions"
+  <canvas baseChart [datasets]="scatterChartData" [labels]="chartLabels" [options]="scatterChartOptions"
     [chartType]="scatterChartType">
   </canvas>
 </div>
