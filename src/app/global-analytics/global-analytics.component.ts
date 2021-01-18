@@ -33,7 +33,7 @@ export class GlobalAnalyticsComponent implements OnInit {
 
               if (this.isChartPoint(dataPoint[index])) {
                 const chartPoint = (dataPoint[index] as ChartPoint)
-                const label = `${chartPoint.t}: [ win rate: ${(chartPoint.y as number * 100).toFixed(0)}%, total matches: ${chartPoint.x} ]`
+                const label = `${chartPoint.t}: [ win rate: ${chartPoint.y}%, total matches: ${chartPoint.x} ]`
                 return label as string;
               }
 
@@ -47,7 +47,7 @@ export class GlobalAnalyticsComponent implements OnInit {
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: "Win Rate"
+          labelString: "Win Rate %"
         }
       }],
       xAxes: [{

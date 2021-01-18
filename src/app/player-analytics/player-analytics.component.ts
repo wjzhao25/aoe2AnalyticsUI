@@ -51,7 +51,7 @@ export class PlayerAnalyticsComponent implements OnInit {
 
               if (this.isChartPoint(dataPoint[index])) {
                 const chartPoint = (dataPoint[index] as ChartPoint)
-                const label = `${chartPoint.t}: [ win rate: ${(chartPoint.y as number * 100).toFixed(0)}%, total matches: ${chartPoint.x} ]`
+                const label = `${chartPoint.t}: [ win rate: ${chartPoint.y}%, total matches: ${chartPoint.x} ]`
                 return label as string;
               }
 
@@ -65,15 +65,26 @@ export class PlayerAnalyticsComponent implements OnInit {
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: "Win Rate"
+          labelString: "Win Rate %"
+        },
+        ticks: {
+          max: 100
         }
       }],
       xAxes: [{
         scaleLabel: {
           display: true,
           labelString: "Total Matches"
+        },
+        ticks: {
+          beginAtZero: true
         }
       }]
+    },
+    layout: {
+      padding: {
+        right: 25
+      }
     }
   };
   public chartLabels: Label[] = [];
