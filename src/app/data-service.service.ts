@@ -25,6 +25,15 @@ export class DataService {
     return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
   }
 
+  getGlobalCivWinRatesByElo(minElo: number, maxElo: number): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('min_elo', minElo + "").set('max_elo', maxElo+ "");
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
+  }
+  getGlobalCivWinRatesByEloAndMapType(minElo: number, maxElo: number, mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('min_elo', minElo + "").set('max_elo', maxElo+ "").set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
+  }
+
   getPlayerCivWinRates(profileId: number): Observable<Array<CivRecord>>{
     let httpParams = new HttpParams().set('profile_id', profileId+'');
     return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/win-rate'), {params: httpParams})
@@ -47,6 +56,7 @@ export class DataService {
     let httpParams = new HttpParams().set('profile_id', profileId+'');
     return this.http.get<Array<String>>(this.url.concat('/player/maps'), {params: httpParams})
   }
+
 
   public civImageURLMap = new Map([
     ["Aztecs", "https://static.wikia.nocookie.net/ageofempires/images/0/0c/CivIcon-Aztecs.png"],

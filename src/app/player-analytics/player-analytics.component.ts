@@ -7,7 +7,6 @@ import { PlayerProfile } from '../model/player-profile';
 import { Observable, of } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
 import { CivRecord } from '../model/civ-record';
-
 @Component({
   selector: 'app-player-analytics',
   templateUrl: './player-analytics.component.html',
@@ -112,7 +111,7 @@ export class PlayerAnalyticsComponent implements OnInit {
         civsWinRates = this.dataService.getPlayerCivWinRates(profile.profileId);
       }else{
         civsWinRates = this.dataService.getPlayerCivWinRatesByMap(profile.profileId, mapType);
-        dataSetLabel = dataSetLabel + " " + mapType
+        dataSetLabel = dataSetLabel + ", " + mapType
       }
       civsWinRates.subscribe(
         result => {
@@ -155,7 +154,7 @@ export class PlayerAnalyticsComponent implements OnInit {
   }
 
   private _filter(name: string): Array<PlayerProfile> {
-    const filterValue = name.toLowerCase();
+    const filterValue = name.toLowerCase();    
     return this.playerProfileIds.filter(profile => profile.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
@@ -168,10 +167,9 @@ export class PlayerAnalyticsComponent implements OnInit {
     );
     this.filteredOptions = this.playerName.valueChanges
       .pipe(
-        take(10),
         startWith(''),
         map(value => typeof value === 'string' ? value : value.name),
-        map(name => name ? this._filter(name) : this.playerProfileIds.slice(0, 10))
+        map(name => name ? this._filter(name) : this.playerProfileIds.slice())
       );
 
   }

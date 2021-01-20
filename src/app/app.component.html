@@ -1,13 +1,17 @@
-<div class="container">
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/global">Global</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/players">Players</a>
-    </li>
-  </ul>
-  <div>
-      <router-outlet></router-outlet>
+<div>
+  <mat-toolbar>
+    <nav mat-tab-nav-bar mat-align-tabs="center">
+      <a mat-tab-link>Age of Analytics</a>
+      <a mat-tab-link routerLink="/global" (click)="activeLink = 'Global'" [active]="activeLink == 'Global'">Global</a>
+      <a mat-tab-link routerLink="/players" (click)="activeLink = 'Players'"
+        [active]="activeLink == 'Players'">Players</a>
+    </nav>
+
+    <span class="toolbar-spacer"></span>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    </button>
+  </mat-toolbar>
+  <div class="container">
+    <router-outlet></router-outlet>
   </div>
 </div>

@@ -56,6 +56,11 @@ export class GlobalAnalyticsComponent implements OnInit {
           labelString: "Total Matches"
         }
       }]
+    },
+    layout: {
+      padding: {
+        right: 25
+      }
     }
   };
   public chartLabels: Label[] = [];
@@ -64,53 +69,102 @@ export class GlobalAnalyticsComponent implements OnInit {
   private images: HTMLImageElement[] = [];
   public map: string = "All";
   public maps: String[] = [];
-
+  public eloRange: string = "None";
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.populateCivData(this.map);
+    this.populateCivData(this.map, this.eloRange);
   }
 
   setMap(mapType: string) {
-    this.populateCivData(this.map);
+    this.populateCivData(this.map, this.eloRange);
   }
 
-  populateCivData(mapType: string) {
+  setElo(eloRange: string) {
+    this.eloRange = eloRange;
+    this.populateCivData(this.map, this.eloRange);
+  }
+
+  populateCivData(mapType: string, eloRange: string) {
     this.dataService.getGlobalPlayedMaps().subscribe(
-      maps => {this.maps = ["All"].concat(maps.map(map => map as string));}
+      maps => { this.maps = ["All"].concat(maps.map(map => map as string)); }
     )
 
     let civsWinRates: Observable<Array<CivRecord>>;
     let dataSetLabel: string = "1v1 Random Map";
-    if(mapType === "All"){
-      civsWinRates = this.dataService.getGlobalCivWinRates();
-    }else{
-      civsWinRates = this.dataService.getGlobalCivWinRatesByMap(mapType);
-      dataSetLabel = dataSetLabel + " " + mapType
-    }
-    civsWinRates.subscribe(
-        result => {
-          this.images = result.map(res => {
-            let image = new Image(50, 50);
-            const civ = res.name as string;
-            image.src = this.dataService.civImageURLMap.get(civ) || "";
-            return image;
-          }) as any;
-          this.scatterChartData = [
-            {
-              data: result.map(res => {
-                const point: ChartPoint = { x: res.totalMatches, y: res.winRate, t: res.name as string }
-                return point;
-              }),
-              pointStyle: this.images,
-              label: dataSetLabel
-            },
-          ];
 
+    if (eloRange === "None") {
+      if (mapType === "All") {
+        civsWinRates = this.dataService.getGlobalCivWinRates();
+      } else {
+        civsWinRates = this.dataService.getGlobalCivWinRatesByMap(mapType);
+        dataSetLabel = dataSetLabel + ", " + mapType
+      }
+    } else {
+
+      if (eloRange === "2500 and above") {
+        if (mapType === "All") {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(2500, 10000);
+        } else {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(2500, 10000, mapType);
         }
-      )
+      } else if (eloRange === "2000-2500") {
+        if (mapType === "All") {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(2000, 2500);
+        } else {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(2000, 2500, mapType);
+        }
+      } else if (eloRange === "1500-2000") {
+        if (mapType === "All") {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(1500, 2000);
+        } else {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(1500, 2000, mapType);
+        }
+      } else if (eloRange === "1000-1500") {
+        if (mapType === "All") {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(1000, 1500);
+        } else {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(1000, 1500, mapType);
+        }
+      } else if (eloRange === "1000 and below") {
+        if (mapType === "All") {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(0, 1000);
+        } else {
+          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(0, 1000, mapType);
+        }
+      } else {
+        civsWinRates = this.dataService.getGlobalCivWinRates();
+      }
 
+      if (mapType !== "All") {
+        dataSetLabel = dataSetLabel + ", " + mapType
+      }
+      dataSetLabel = dataSetLabel + ", " + eloRange
     }
-  
+
+    civsWinRates.subscribe(
+      result => {
+        this.images = result.map(res => {
+          let image = new Image(50, 50);
+          const civ = res.name as string;
+          image.src = this.dataService.civImageURLMap.get(civ) || "";
+          return image;
+        }) as any;
+        this.scatterChartData = [
+          {
+            data: result.map(res => {
+              const point: ChartPoint = { x: res.totalMatches, y: res.winRate, t: res.name as string }
+              return point;
+            }),
+            pointStyle: this.images,
+            label: dataSetLabel
+          },
+        ];
+
+      }
+    )
+
+  }
+
 
 }

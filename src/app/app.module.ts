@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GlobalAnalyticsComponent } from './global-analytics/global-analytics.component';
 @NgModule({
@@ -19,6 +21,8 @@ import { GlobalAnalyticsComponent } from './global-analytics/global-analytics.co
     GlobalAnalyticsComponent
   ],
   imports: [
+    MatToolbarModule,
+    MatTabsModule,
     MatCardModule,
     MatSelectModule,
     MatAutocompleteModule,
