@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/d02b1c45-27fd-488a-97f8-ece7d894e733/resourceGroups/age-of-analyticz-1611237041992-rg/providers/Microsoft.Web/sites/ageofanalytics",
+    "appService.deploySubpath": "dist\\aoe2-analytics"
+}

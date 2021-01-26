@@ -6,7 +6,7 @@ import { PlayerAnalyticsComponent } from './player-analytics/player-analytics.co
 const routes: Routes = [
   {path: 'global', component: GlobalAnalyticsComponent},
   {path: 'players', component: PlayerAnalyticsComponent},
-  {path: '**', component: PlayerAnalyticsComponent}
+  {path: '**', component: GlobalAnalyticsComponent}
 ];
 
 @NgModule({
