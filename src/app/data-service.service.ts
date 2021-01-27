@@ -22,39 +22,39 @@ export class DataService {
   
   getGlobalCivWinRatesByMap(mapType: string): Observable<Array<CivRecord>>{
     let httpParams = new HttpParams().set('map_type', mapType);
-    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams, withCredentials: true})
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
   }
 
   getGlobalCivWinRatesByElo(minElo: number, maxElo: number): Observable<Array<CivRecord>>{
     let httpParams = new HttpParams().set('min_elo', minElo + "").set('max_elo', maxElo+ "");
-    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams, withCredentials: true})
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
   }
   getGlobalCivWinRatesByEloAndMapType(minElo: number, maxElo: number, mapType: string): Observable<Array<CivRecord>>{
     let httpParams = new HttpParams().set('min_elo', minElo + "").set('max_elo', maxElo+ "").set('map_type', mapType);
-    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams, withCredentials: true})
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
   }
 
   getPlayerCivWinRates(profileId: number): Observable<Array<CivRecord>>{
     let httpParams = new HttpParams().set('profile_id', profileId+'');
-    return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/win-rate'), {params: httpParams, withCredentials: true})
+    return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/win-rate'), {params: httpParams})
   }
 
   getPlayerCivWinRatesByMap(profileId: number, mapType: string): Observable<Array<CivRecord>>{
     let httpParams = new HttpParams().set('profile_id', profileId+'').set('map_type', mapType);
-    return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/win-rate'), {params: httpParams, withCredentials: true})
+    return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/win-rate'), {params: httpParams})
   }
 
   getPlayerProfiles(): Observable<Array<PlayerProfile>>{
-    return this.http.get<Array<PlayerProfile>>(this.url.concat('/player/profiles'), {withCredentials: true})
+    return this.http.get<Array<PlayerProfile>>(this.url.concat('/player/profiles'))
   }
 
   getGlobalPlayedMaps(): Observable<Array<String>>{
-    return this.http.get<Array<String>>(this.url.concat('/global/maps'), {withCredentials: true})
+    return this.http.get<Array<String>>(this.url.concat('/global/maps'))
   }
 
   getPlayerPlayedMaps(profileId: number): Observable<Array<String>>{
     let httpParams = new HttpParams().set('profile_id', profileId+'');
-    return this.http.get<Array<String>>(this.url.concat('/player/maps'), {params: httpParams, withCredentials: true})
+    return this.http.get<Array<String>>(this.url.concat('/player/maps'), {params: httpParams})
   }
 
 
