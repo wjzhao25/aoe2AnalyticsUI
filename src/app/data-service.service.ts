@@ -10,7 +10,7 @@ import { PlayerProfile } from './model/player-profile';
 })
 export class DataService {
 
-  url = "https://age-of-analyticz-1611237041992.azurewebsites.net"
+  url = "https://ageofanalyticzapi.azurewebsites.net/"
 
   constructor(private http: HttpClient) { }
 
