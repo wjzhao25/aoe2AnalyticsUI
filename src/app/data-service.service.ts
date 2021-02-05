@@ -10,7 +10,7 @@ import { PlayerProfile } from './model/player-profile';
 })
 export class DataService {
 
-  url = "https://ageofanalyticzapi.azurewebsites.net/"
+  url = "https://ageofanalyticzapi.azurewebsites.net/" 
 
   constructor(private http: HttpClient) { }
 
@@ -25,10 +25,26 @@ export class DataService {
     return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
   }
 
-  getGlobalCivWinRatesByElo(minElo: number, maxElo: number): Observable<Array<CivRecord>>{
-    let httpParams = new HttpParams().set('min_elo', minElo + "").set('max_elo', maxElo+ "");
-    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
+  getGlobalCivWinRatesByElo1000andBelow(): Observable<Array<CivRecord>>{
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/1000andBelow'))
   }
+  
+  getGlobalCivWinRatesByElo10001500(): Observable<Array<CivRecord>>{
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/10001500'))
+  }
+  
+  getGlobalCivWinRatesByElo15002000(): Observable<Array<CivRecord>>{
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/15002000'))
+  }
+  
+  getGlobalCivWinRatesByElo20002500(): Observable<Array<CivRecord>>{
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/20002500'))
+  }
+  
+  getGlobalCivWinRatesByElo2500andAbove(): Observable<Array<CivRecord>>{
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/2500andAbove'))
+  }
+
   getGlobalCivWinRatesByEloAndMapType(minElo: number, maxElo: number, mapType: string): Observable<Array<CivRecord>>{
     let httpParams = new HttpParams().set('min_elo', minElo + "").set('max_elo', maxElo+ "").set('map_type', mapType);
     return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})

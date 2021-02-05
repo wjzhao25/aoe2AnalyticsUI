@@ -104,31 +104,31 @@ export class GlobalAnalyticsComponent implements OnInit {
 
       if (eloRange === "2500 and above") {
         if (mapType === "All") {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(2500, 10000);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo2500andAbove();
         } else {
           civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(2500, 10000, mapType);
         }
       } else if (eloRange === "2000-2500") {
         if (mapType === "All") {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(2000, 2500);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo20002500();
         } else {
           civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(2000, 2500, mapType);
         }
       } else if (eloRange === "1500-2000") {
         if (mapType === "All") {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(1500, 2000);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo15002000();
         } else {
           civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(1500, 2000, mapType);
         }
       } else if (eloRange === "1000-1500") {
         if (mapType === "All") {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(1000, 1500);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo10001500();
         } else {
           civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(1000, 1500, mapType);
         }
       } else if (eloRange === "1000 and below") {
         if (mapType === "All") {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByElo(0, 1000);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo1000andBelow();
         } else {
           civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(0, 1000, mapType);
         }
