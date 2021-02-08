@@ -45,9 +45,29 @@ export class DataService {
     return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/2500andAbove'))
   }
 
-  getGlobalCivWinRatesByEloAndMapType(minElo: number, maxElo: number, mapType: string): Observable<Array<CivRecord>>{
-    let httpParams = new HttpParams().set('min_elo', minElo + "").set('max_elo', maxElo+ "").set('map_type', mapType);
-    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
+  getGlobalCivWinRatesByElo1000andBelowAndMapType(mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/1000andBelow'), {params: httpParams})
+  }
+  
+  getGlobalCivWinRatesByElo10001500AndMapType(mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/10001500'), {params: httpParams})
+  }
+  
+  getGlobalCivWinRatesByElo15002000AndMapType(mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/15002000'), {params: httpParams})
+  }
+  
+  getGlobalCivWinRatesByElo20002500AndMapType(mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/20002500'), {params: httpParams})
+  }
+  
+  getGlobalCivWinRatesByElo2500andAboveAndMapType(mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/2500andAbove'), {params: httpParams})
   }
 
   getPlayerCivWinRates(profileId: number): Observable<Array<CivRecord>>{

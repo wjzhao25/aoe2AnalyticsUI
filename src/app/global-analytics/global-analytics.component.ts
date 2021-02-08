@@ -106,31 +106,31 @@ export class GlobalAnalyticsComponent implements OnInit {
         if (mapType === "All") {
           civsWinRates = this.dataService.getGlobalCivWinRatesByElo2500andAbove();
         } else {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(2500, 10000, mapType);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo2500andAboveAndMapType(mapType);
         }
       } else if (eloRange === "2000-2500") {
         if (mapType === "All") {
           civsWinRates = this.dataService.getGlobalCivWinRatesByElo20002500();
         } else {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(2000, 2500, mapType);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo20002500AndMapType(mapType);
         }
       } else if (eloRange === "1500-2000") {
         if (mapType === "All") {
           civsWinRates = this.dataService.getGlobalCivWinRatesByElo15002000();
         } else {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(1500, 2000, mapType);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo15002000AndMapType(mapType);
         }
       } else if (eloRange === "1000-1500") {
         if (mapType === "All") {
           civsWinRates = this.dataService.getGlobalCivWinRatesByElo10001500();
         } else {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(1000, 1500, mapType);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo10001500AndMapType(mapType);
         }
       } else if (eloRange === "1000 and below") {
         if (mapType === "All") {
           civsWinRates = this.dataService.getGlobalCivWinRatesByElo1000andBelow();
         } else {
-          civsWinRates = this.dataService.getGlobalCivWinRatesByEloAndMapType(0, 1000, mapType);
+          civsWinRates = this.dataService.getGlobalCivWinRatesByElo1000andBelowAndMapType(mapType);
         }
       } else {
         civsWinRates = this.dataService.getGlobalCivWinRates();
