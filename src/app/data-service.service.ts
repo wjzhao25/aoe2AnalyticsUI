@@ -4,13 +4,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { CivRecord } from './model/civ-record';
 import { PlayerProfile } from './model/player-profile';
-
+import { environment } from './../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  url = "https://ageofanalyticzapi.azurewebsites.net/" 
+  url = environment.apiUrl
 
   constructor(private http: HttpClient) { }
 
@@ -99,6 +99,7 @@ export class DataService {
     ["Berbers", "https://static.wikia.nocookie.net/ageofempires/images/7/71/CivIcon-Berbers.png"],
     ["Britons", "https://static.wikia.nocookie.net/ageofempires/images/a/ae/CivIcon-Britons.png"],
     ["Bulgarians", "https://static.wikia.nocookie.net/ageofempires/images/c/ce/CivIcon-Bulgarians.png"],
+    ["Burgundians", "https://static.wikia.nocookie.net/ageofempires/images/5/5e/Menu_techtree_burgundians.png"],
     ["Burmese", "https://static.wikia.nocookie.net/ageofempires/images/7/79/CivIcon-Burmese.png"],
     ["Byzantines", "https://static.wikia.nocookie.net/ageofempires/images/2/27/CivIcon-Byzantines.png"],
     ["Celts", "https://static.wikia.nocookie.net/ageofempires/images/5/59/CivIcon-Celts.png"],
@@ -123,6 +124,7 @@ export class DataService {
     ["Persians", "https://static.wikia.nocookie.net/ageofempires/images/a/ad/CivIcon-Persians.png"],
     ["Portuguese", "https://static.wikia.nocookie.net/ageofempires/images/6/60/CivIcon-Portuguese.png"],
     ["Saracens", "https://static.wikia.nocookie.net/ageofempires/images/5/59/CivIcon-Saracens.png"],
+    ["Sicilians", "https://static.wikia.nocookie.net/ageofempires/images/7/7f/Menu_techtree_sicilians.png"],
     ["Slavs", "https://static.wikia.nocookie.net/ageofempires/images/1/12/CivIcon-Slavs.png "],
     ["Spanish", "https://static.wikia.nocookie.net/ageofempires/images/0/0a/CivIcon-Spanish.png"],
     ["Tatars", "https://static.wikia.nocookie.net/ageofempires/images/f/f2/CivIcon-Tatars.png"],
