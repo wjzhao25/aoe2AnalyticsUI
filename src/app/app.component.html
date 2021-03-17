@@ -1,7 +1,9 @@
 <div>
   <mat-toolbar>
     <nav mat-tab-nav-bar mat-align-tabs="center">
-      <a mat-tab-link>Age of Analytics</a>
+      <a mat-tab-link>
+        <img src="assets/img/logo_small.png">
+        &nbsp;&nbsp;&nbsp;Age of Analyticz</a>
       <a mat-tab-link routerLink="/global" (click)="activeLink = 'Global'" [active]="activeLink == 'Global'">Global</a>
       <a mat-tab-link routerLink="/players" (click)="activeLink = 'Players'"
         [active]="activeLink == 'Players'">Players</a>
@@ -11,7 +13,20 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
     </button>
   </mat-toolbar>
-  <div class="container">
+  <div class="container chart">
     <router-outlet></router-outlet>
   </div>
+  <div>
+    <p></p>
+  </div>
+  <footer class="footer">
+    <div class="container">
+    <div class="content has-text-centered">
+      <p>
+        Age of Empires II: Definitive Edition © Microsoft Corporation. 
+        Age of Analyticz was created under Microsoft's "Game Content Usage Rules" using assets from Age of Empires II: Definitive Edition, and it is not endorsed by or affiliated with Microsoft.  
+      </p>
+    </div>
+    </div>
+  </footer>
 </div>

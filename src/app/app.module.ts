@@ -14,6 +14,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { GlobalAnalyticsComponent } from './global-analytics/global-analytics.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { GlobalAnalyticsComponent } from './global-analytics/global-analytics.co
     BrowserModule,
     AppRoutingModule,
     ChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'aoe2-analytics';
-  activeLink = "Global";
+  activeLink = "";
 
   
 }

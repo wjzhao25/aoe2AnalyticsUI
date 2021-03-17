@@ -7,6 +7,8 @@ import { PlayerProfile } from '../model/player-profile';
 import { Observable, of } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
 import { CivRecord } from '../model/civ-record';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-player-analytics',
   templateUrl: './player-analytics.component.html',
@@ -14,8 +16,10 @@ import { CivRecord } from '../model/civ-record';
 })
 
 export class PlayerAnalyticsComponent implements OnInit {
-
-  playerName = new FormControl("MbL40C");
+  loaded = false
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  playerName = new FormControl("GL.TheViper");
   playerProfile: PlayerProfile = {
     profileId: 0,
     steamId: "",
@@ -99,17 +103,18 @@ export class PlayerAnalyticsComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   populateCivData(playerName: string, mapType: string) {
+    this.loaded = false
     const profile = this.playerProfileIds.find(profile => profile.name === playerName)
     if (profile) {
       this.playerProfile = profile;
       this.dataService.getPlayerPlayedMaps(profile.profileId).subscribe(
-        maps => {this.maps = ["All"].concat(maps.map(map => map as string));}
+        maps => { this.maps = ["All"].concat(maps.map(map => map as string)); }
       )
       let civsWinRates: Observable<Array<CivRecord>>;
       let dataSetLabel: string = "1v1 Random Map";
-      if(mapType === "All"){
+      if (mapType === "All") {
         civsWinRates = this.dataService.getPlayerCivWinRates(profile.profileId);
-      }else{
+      } else {
         civsWinRates = this.dataService.getPlayerCivWinRatesByMap(profile.profileId, mapType);
         dataSetLabel = dataSetLabel + ", " + mapType
       }
@@ -131,7 +136,7 @@ export class PlayerAnalyticsComponent implements OnInit {
               label: dataSetLabel
             },
           ];
-
+          this.loaded = true
         }
       );
     }
@@ -154,7 +159,7 @@ export class PlayerAnalyticsComponent implements OnInit {
   }
 
   private _filter(name: string): Array<PlayerProfile> {
-    const filterValue = name.toLowerCase();    
+    const filterValue = name.toLowerCase();
     return this.playerProfileIds.filter(profile => profile.name.toLowerCase().indexOf(filterValue) === 0);
   }
 

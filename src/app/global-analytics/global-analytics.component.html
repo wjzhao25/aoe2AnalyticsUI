@@ -1,24 +1,29 @@
-<form class="global-form" >
-    <mat-form-field appearance="fill">
-        <mat-label>Select Elo Range</mat-label>
-        <mat-select [(ngModel)]="eloRange" name="eloRange" (selectionChange)="setElo($event.value)">
-            <mat-option value="None">None</mat-option>
-            <mat-option value="2500 and above">2500 and above</mat-option>
-            <mat-option value="2000-2500">2000-2500</mat-option>
-            <mat-option value="1500-2000">1500-2000</mat-option>
-            <mat-option value="1000-1500">1000-1500</mat-option>
-            <mat-option value="1000 and below">1000 and below</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Select Map</mat-label>
-        <mat-select [(ngModel)]="map" name="map" (selectionChange)="setMap($event.value)">
-            <mat-option *ngFor="let map of maps" [value]="map">
-                {{map}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+<form class="global-form">
+    <div class="row">
+        <mat-form-field appearance="fill">
+            <mat-label>Select Elo Range</mat-label>
+            <mat-select [(ngModel)]="eloRange" name="eloRange" (selectionChange)="setElo($event.value)">
+                <mat-option value="None">None</mat-option>
+                <mat-option value="2500 and above">2500 and above</mat-option>
+                <mat-option value="2000-2500">2000-2500</mat-option>
+                <mat-option value="1500-2000">1500-2000</mat-option>
+                <mat-option value="1000-1500">1000-1500</mat-option>
+                <mat-option value="1000 and below">1000 and below</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Select Map</mat-label>
+            <mat-select [(ngModel)]="map" name="map" (selectionChange)="setMap($event.value)">
+                <mat-option *ngFor="let map of maps" [value]="map">
+                    {{map}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-progress-spinner [diameter]="45" *ngIf="!loaded" [color]="color" [mode]="mode">
+        </mat-progress-spinner>
+    </div>
 </form>
+
 
 <div style="display: block;">
     <canvas baseChart [datasets]="scatterChartData" [labels]="chartLabels" [options]="scatterChartOptions"

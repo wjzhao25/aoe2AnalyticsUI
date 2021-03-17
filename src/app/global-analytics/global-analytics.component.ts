@@ -4,6 +4,8 @@ import { Label } from 'ng2-charts';
 import { Observable } from 'rxjs';
 import { DataService } from '../data-service.service';
 import { CivRecord } from '../model/civ-record';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-global-analytics',
@@ -12,6 +14,9 @@ import { CivRecord } from '../model/civ-record';
 })
 export class GlobalAnalyticsComponent implements OnInit {
 
+  loaded = false
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'indeterminate';
   isChartPoint(obj: number | null | undefined | number[] | ChartPoint): obj is ChartPoint {
     if ((obj as ChartPoint).x) {
       return true
@@ -48,6 +53,9 @@ export class GlobalAnalyticsComponent implements OnInit {
         scaleLabel: {
           display: true,
           labelString: "Win Rate %"
+        },
+        ticks: {
+          beginAtZero: false
         }
       }],
       xAxes: [{
@@ -86,6 +94,7 @@ export class GlobalAnalyticsComponent implements OnInit {
   }
 
   populateCivData(mapType: string, eloRange: string) {
+    this.loaded = false
     this.dataService.getGlobalPlayedMaps().subscribe(
       maps => { this.maps = ["All"].concat(maps.map(map => map as string)); }
     )
@@ -160,7 +169,7 @@ export class GlobalAnalyticsComponent implements OnInit {
             label: dataSetLabel
           },
         ];
-
+        this.loaded = true
       }
     )
 

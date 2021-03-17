@@ -1,22 +1,30 @@
 <form class="player-form" (ngSubmit)="onSubmit()">
-  <mat-form-field class="player-name-full-width">
-    <mat-label>Player username</mat-label>
-    <input matInput placeholder="Ex. MbL40C" [formControl]="playerName" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-      (optionSelected)="setPlayerName($event.option.value)">
-      <mat-option *ngFor="let option of filteredOptions | async | slice : 0 : 10" [value]="option.name">
-        {{option.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Select Map</mat-label>
-    <mat-select [(ngModel)]="map" name="map" (selectionChange)="setMap($event.value)">
-      <mat-option *ngFor="let map of maps" [value]="map">
-        {{map}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Player username</mat-label>
+      <input matInput placeholder="Ex. GL.TheViper" [formControl]="playerName" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+        (optionSelected)="setPlayerName($event.option.value)">
+        <mat-option *ngFor="let option of filteredOptions | async | slice : 0 : 10" [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Map</mat-label>
+      <mat-select [(ngModel)]="map" name="map" (selectionChange)="setMap($event.value)">
+        <mat-option *ngFor="let map of maps" [value]="map">
+          {{map}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-progress-spinner [diameter]="45" *ngIf="!loaded" [color]="color" [mode]="mode">
+    </mat-progress-spinner>
+
+
+  </div>
+
 </form>
 <mat-card class="player-profile-card">
   <mat-card-header>
