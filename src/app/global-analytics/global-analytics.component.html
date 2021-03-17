@@ -1,6 +1,6 @@
 <form class="global-form">
     <div class="row">
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
             <mat-label>Select Elo Range</mat-label>
             <mat-select [(ngModel)]="eloRange" name="eloRange" (selectionChange)="setElo($event.value)">
                 <mat-option value="None">None</mat-option>
@@ -11,7 +11,7 @@
                 <mat-option value="1000 and below">1000 and below</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
             <mat-label>Select Map</mat-label>
             <mat-select [(ngModel)]="map" name="map" (selectionChange)="setMap($event.value)">
                 <mat-option *ngFor="let map of maps" [value]="map">
