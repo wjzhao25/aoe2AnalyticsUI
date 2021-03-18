@@ -25,6 +25,11 @@ export class DataService {
     return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate'), {params: httpParams})
   }
 
+  getHC4CivWinRatesByMap(mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/HC4'), {params: httpParams})
+  }
+
   getGlobalCivWinRatesByElo1000andBelow(): Observable<Array<CivRecord>>{
     return this.http.get<Array<CivRecord>>(this.url.concat('/global/civs/win-rate/1000andBelow'))
   }
@@ -86,6 +91,9 @@ export class DataService {
 
   getGlobalPlayedMaps(): Observable<Array<String>>{
     return this.http.get<Array<String>>(this.url.concat('/global/maps'))
+  }
+  getHC4PlayedMaps(): Observable<Array<String>>{
+    return this.http.get<Array<String>>(this.url.concat('/global/maps/HC4'))
   }
 
   getPlayerPlayedMaps(profileId: number): Observable<Array<String>>{

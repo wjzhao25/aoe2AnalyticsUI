@@ -1,8 +1,8 @@
 <form class="global-form">
     <div class="row">
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" >
             <mat-label>Select Elo Range</mat-label>
-            <mat-select [(ngModel)]="eloRange" name="eloRange" (selectionChange)="setElo($event.value)">
+            <mat-select [(ngModel)]="eloRange" name="eloRange" (selectionChange)="setElo($event.value)" [disabled]="disableElo">
                 <mat-option value="None">None</mat-option>
                 <mat-option value="2500 and above">2500 and above</mat-option>
                 <mat-option value="2000-2500">2000-2500</mat-option>
@@ -19,7 +19,14 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-progress-spinner [diameter]="45" *ngIf="!loaded" [color]="color" [mode]="mode">
+        <mat-form-field appearance="outline">
+            <mat-label>Select Match Type</mat-label>
+            <mat-select [(ngModel)]="matchType" name="matchType" (selectionChange)="setMatchType($event.value)">
+                <mat-option value="1v1 Random Map">1v1 Random Map</mat-option>
+                <mat-option value="HC4">HC4</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-progress-spinner [diameter]="45" *ngIf="!mapsLoaded || !civRecordsLoaded" [color]="color" [mode]="mode">
         </mat-progress-spinner>
     </div>
 </form>

@@ -4,5 +4,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://ageofanalyticzapi-dev.azurewebsites.net'
+  apiUrl: 'http://localhost:8080'
 };
