@@ -5,7 +5,7 @@
       <input matInput placeholder="Ex. GL.TheViper" [formControl]="playerName" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
         (optionSelected)="setPlayerName($event.option.value)">
-        <mat-option *ngFor="let option of filteredOptions | async | slice : 0 : 10" [value]="option.name">
+        <mat-option *ngFor="let option of filteredOptions | async | slice : 0 : 20" [value]="option.name">
           {{option.name}}
         </mat-option>
       </mat-autocomplete>

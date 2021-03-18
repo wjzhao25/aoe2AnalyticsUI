@@ -160,7 +160,7 @@ export class PlayerAnalyticsComponent implements OnInit {
 
   private _filter(name: string): Array<PlayerProfile> {
     const filterValue = name.toLowerCase();
-    return this.playerProfileIds.filter(profile => profile.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.playerProfileIds.filter(profile => profile.name.toLowerCase().match(filterValue) != null);
   }
 
   ngOnInit(): void {
