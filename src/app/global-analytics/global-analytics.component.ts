@@ -129,6 +129,7 @@ export class GlobalAnalyticsComponent implements OnInit {
       this.dataService.getGlobalPlayedMaps().subscribe(
         maps => { this.maps = ["All"].concat(maps.map(map => map as string)); 
         this.mapsLoaded = true
+        this.map = "All"
         this.populateCivData(this.map, this.eloRange, this.matchType);
       }
       )
