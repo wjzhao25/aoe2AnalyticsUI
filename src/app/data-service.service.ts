@@ -80,6 +80,16 @@ export class DataService {
     return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/win-rate'), {params: httpParams})
   }
 
+  getPlayerCivLoseRates(profileId: number): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('profile_id', profileId+'');
+    return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/lose-rate'), {params: httpParams})
+  }
+
+  getPlayerCivLoseRatesByMap(profileId: number, mapType: string): Observable<Array<CivRecord>>{
+    let httpParams = new HttpParams().set('profile_id', profileId+'').set('map_type', mapType);
+    return this.http.get<Array<CivRecord>>(this.url.concat('/player/civs/lose-rate'), {params: httpParams})
+  }
+
   getPlayerProfiles(): Observable<Array<PlayerProfile>>{
     return this.http.get<Array<PlayerProfile>>(this.url.concat('/player/profiles'))
   }

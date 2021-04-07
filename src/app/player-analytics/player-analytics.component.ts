@@ -9,6 +9,7 @@ import { map, startWith, take } from 'rxjs/operators';
 import { CivRecord } from '../model/civ-record';
 import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 @Component({
   selector: 'app-player-analytics',
   templateUrl: './player-analytics.component.html',
@@ -40,9 +41,10 @@ export class PlayerAnalyticsComponent implements OnInit {
     return false
   }
 
-  public scatterChartOptions: ChartOptions = {
+  public winRateChartOptions: ChartOptions = {
     responsive: true,
     tooltips: {
+      mode: 'nearest',
       callbacks: {
         label: (tooltipItem: ChartTooltipItem, data: ChartData) => {
           tooltipItem.index
@@ -90,17 +92,146 @@ export class PlayerAnalyticsComponent implements OnInit {
       }
     }
   };
+
+  public loseRateChartOptions: ChartOptions = {
+    responsive: true,
+    tooltips: {
+      mode: 'nearest',
+      callbacks: {
+        label: (tooltipItem: ChartTooltipItem, data: ChartData) => {
+          tooltipItem.index
+          let dataset = data.datasets
+          if (dataset) {
+            let dataPoint = dataset[0].data
+            const index: number = tooltipItem.index || 0;
+            if (dataPoint) {
+
+              if (this.isChartPoint(dataPoint[index])) {
+                const chartPoint = (dataPoint[index] as ChartPoint)
+                const label = `${chartPoint.t}: [ lose rate: ${chartPoint.y}%, total matches: ${chartPoint.x} ]`
+                return label as string;
+              }
+
+            }
+          }
+          return "Error";
+        }
+      }
+    },
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Lose Rate %"
+        },
+        ticks: {
+          max: 100
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Total Matches"
+        },
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
+    layout: {
+      padding: {
+        right: 25
+      }
+    }
+  };
+
   public chartLabels: Label[] = [];
-  public scatterChartData: ChartDataSets[] = [];
+  public winRateChartData: ChartDataSets[] = [];
+  public loseRateChartData: ChartDataSets[] = [];
   public scatterChartType: ChartType = 'scatter';
   private images: HTMLImageElement[] = [];
   private playerProfileIds: Array<PlayerProfile> = [];
   public filteredOptions: Observable<Array<PlayerProfile>> = of();
   public map: string = "All";
   public maps: String[] = [];
-
-
+  public chartTypes: string[] = ['Win Rate', 'Lose Rate'];
+  public chartType: number = 0;
   constructor(private dataService: DataService) { }
+
+  setChartType(tabChangeEvent: MatTabChangeEvent) {
+    this.chartType = tabChangeEvent.index
+    this.onSubmit()
+  }
+
+  populateWinRateData(mapType: string, profile: PlayerProfile, dataSetLabel: string) {
+    let civsWinRates: Observable<Array<CivRecord>>;
+    if (mapType === "All") {
+      civsWinRates = this.dataService.getPlayerCivWinRates(profile.profileId);
+    } else {
+      civsWinRates = this.dataService.getPlayerCivWinRatesByMap(profile.profileId, mapType);
+      dataSetLabel = dataSetLabel + ", " + mapType
+    }
+    civsWinRates.subscribe(
+      result => {
+        this.images = result.map(res => {
+          let image = new Image(50, 50);
+
+
+          const civ = res.name as string;
+          image.src = this.dataService.civImageURLMap.get(civ) || "";
+
+          return image;
+        }) as any;
+        this.winRateChartData = [
+          {
+            data: result.map(res => {
+              const point: ChartPoint = { x: res.totalMatches, y: res.winRate, t: res.name as string }
+              return point;
+            }),
+            pointStyle: this.images,
+            label: dataSetLabel,
+            pointHitRadius: 25
+          },
+        ];
+        this.loaded = true
+      }
+    );
+  }
+
+  populateLoseRateData(mapType: string, profile: PlayerProfile, dataSetLabel: string) {
+    let civsLoseRates: Observable<Array<CivRecord>>;
+    if (mapType === "All") {
+      civsLoseRates = this.dataService.getPlayerCivLoseRates(profile.profileId);
+    } else {
+      civsLoseRates = this.dataService.getPlayerCivLoseRatesByMap(profile.profileId, mapType);
+      dataSetLabel = dataSetLabel + ", " + mapType
+    }
+    civsLoseRates.subscribe(
+      result => {
+        this.images = result.map(res => {
+          let image = new Image(50, 50);
+
+
+          const civ = res.name as string;
+          image.src = this.dataService.civImageURLMap.get(civ) || "";
+
+          return image;
+        }) as any;
+        this.loseRateChartData = [
+          {
+            data: result.map(res => {
+              const point: ChartPoint = { x: res.totalMatches, y: res.winRate, t: res.name as string }
+              return point;
+            }),
+            pointStyle: this.images,
+            label: dataSetLabel,
+            pointHitRadius: 25
+          },
+        ];
+        this.loaded = true
+      }
+    );
+  }
 
   populateCivData(playerName: string, mapType: string) {
     this.loaded = false
@@ -110,39 +241,19 @@ export class PlayerAnalyticsComponent implements OnInit {
       this.dataService.getPlayerPlayedMaps(profile.profileId).subscribe(
         maps => { this.maps = ["All"].concat(maps.map(map => map as string)); }
       )
-      let civsWinRates: Observable<Array<CivRecord>>;
+
       let dataSetLabel: string = "1v1 Random Map";
-      if (mapType === "All") {
-        civsWinRates = this.dataService.getPlayerCivWinRates(profile.profileId);
-      } else {
-        civsWinRates = this.dataService.getPlayerCivWinRatesByMap(profile.profileId, mapType);
-        dataSetLabel = dataSetLabel + ", " + mapType
+      if (this.chartType === 0) {
+        this.populateWinRateData(mapType, profile, dataSetLabel)
+      } else if (this.chartType === 1) {
+        this.populateLoseRateData(mapType, profile, dataSetLabel)
       }
-      civsWinRates.subscribe(
-        result => {
-          this.images = result.map(res => {
-            let image = new Image(50, 50);
-            const civ = res.name as string;
-            image.src = this.dataService.civImageURLMap.get(civ) || "";
-            return image;
-          }) as any;
-          this.scatterChartData = [
-            {
-              data: result.map(res => {
-                const point: ChartPoint = { x: res.totalMatches, y: res.winRate, t: res.name as string }
-                return point;
-              }),
-              pointStyle: this.images,
-              label: dataSetLabel
-            },
-          ];
-          this.loaded = true
-        }
-      );
+
     }
   }
 
   setPlayerName(name: string) {
+    this.playerName.setValue(name);
     this.populateCivData(name, this.map);
   }
 
@@ -159,8 +270,12 @@ export class PlayerAnalyticsComponent implements OnInit {
   }
 
   private _filter(name: string): Array<PlayerProfile> {
-    const filterValue = name.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    return this.playerProfileIds.filter(profile => profile.name.toLowerCase().match(filterValue) != null);
+
+    if (!name) {
+      return this.playerProfileIds;
+    }
+    const filterValue = name.toLowerCase();
+    return this.playerProfileIds.filter(profile => profile.name.toLowerCase().includes(filterValue));
   }
 
   ngOnInit(): void {

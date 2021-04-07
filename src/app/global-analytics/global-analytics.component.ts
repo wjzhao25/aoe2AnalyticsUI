@@ -27,6 +27,7 @@ export class GlobalAnalyticsComponent implements OnInit {
   public scatterChartOptions: ChartOptions = {
     responsive: true,
     tooltips: {
+      mode: 'nearest',
       callbacks: {
         label: (tooltipItem: ChartTooltipItem, data: ChartData) => {
           tooltipItem.index
@@ -166,7 +167,8 @@ export class GlobalAnalyticsComponent implements OnInit {
               return point;
             }),
             pointStyle: this.images,
-            label: dataSetLabel
+            label: dataSetLabel,
+            pointHitRadius: 25
           },
         ];
         this.loaded = true
